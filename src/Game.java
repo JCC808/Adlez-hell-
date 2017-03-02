@@ -16,7 +16,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private boolean isRunning = false;
     private static final int WIDTH = 640, HEIGHT=480;
     private static final String TITLE = "Adlez";
-    private static int level = 1;
+    private static int level = 0;
 //main calls a new game starting it out, also starts up jFrame (the paintable window)
     public static void main(String[] args)throws IOException {
         Game game = new Game();
@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public static Player player;
     public static PongBall pongBall;
-    public static Walls[] walls= new Walls[20];
+    //public static Walls[] walls= new Walls[20];
     public static Walls[][] grid = new Walls[7][192];
 //initializes the game obj.. this has to have dimensions in it and every object, block, player whatever
 // also starts the KeyListener
@@ -63,7 +63,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 //new shit
         int levelsMade = 1;
         int[][] frame = new int[7][192];
-        frame[0] = read("resources\\Level1.txt");
+        frame[0] = read("resources\\Level0.txt");
         int locx = 0,locy=0;
         for (int i= 0; i<levelsMade; i++) {
             for (int j = 0; j < 192; j++) {
@@ -107,7 +107,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 //this is all of the movements, everything that should happen with every split second update
     public void tick(){
         //pongBall.tick();
-        player.tick(grid,1);
+        player.tick(grid,level);
     }
 //renders the graphics... uses bs, buffered strategy to hold on to the g,
 //graphics and then disposes the old graphics to be refilled later, then displays bs
@@ -123,7 +123,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         g.fillRect(0,0,Game.WIDTH,Game.HEIGHT);
         player.render(g);
         //pongBall.render(g);
-        for(int i = 0; i<grid[level-1].length;i++) grid[level-1][i].render(g);
+        for(int i = 0; i<grid[level].length;i++) grid[level][i].render(g);
         g.dispose();
         bs.show();
     }
@@ -159,6 +159,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
             e.printStackTrace();
         }
     }
+/*
+ *this method reads 1 and 0 from .text files then returns them in an array to be used for creating levels
+ */
     private static int[] read(String fileName)throws IOException{
         int[] arr = new int[192];
         FileReader file = new FileReader(fileName);

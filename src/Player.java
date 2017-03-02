@@ -24,12 +24,21 @@ public class Player extends Rectangle {
     }
 //if any of the keys are pressed move speed in that direction
 //and yes y increases as you go down
-    public void tick(Walls[][] walls,int level){
-        /*for (int i=0; i<192; i++){
-            if (walls[level][i].get)
-
+    public void tick(Walls[][] grid,int level){
+//this crazy looking, really hard to read for loop is the hit boxes for the blocks
+        for (int i=0; i<192; i++){
+            if (grid[level][i].getWidth()>0){
+                if((this.getMaxY() >= grid[level][i].getMinY()) && (this.getMaxY() < grid[level][i].getMinY()+4)&&
+                   (this.getMaxX() >= grid[level][i].getMinX()) && (this.getMinX() <= grid[level][i].getMaxX())) s = false;
+                if((this.getMinY() >= grid[level][i].getMaxY()) && (this.getMinY() < grid[level][i].getMaxY()+4)&&
+                   (this.getMaxX() >= grid[level][i].getMinX()) && (this.getMinX() <= grid[level][i].getMaxX())) w = false;
+                if((this.getMaxX() >= grid[level][i].getMinX()) && (this.getMaxX() < grid[level][i].getMinX()+4)&&
+                   (this.getMaxY() >= grid[level][i].getMinY()) && (this.getMinY() <= grid[level][i].getMaxY())) d = false;
+                if((this.getMinX() >= grid[level][i].getMaxX()) && (this.getMinX() < grid[level][i].getMaxX()+4)&&
+                   (this.getMaxY() >= grid[level][i].getMinY()) && (this.getMinY() <= grid[level][i].getMaxY())) a = false;
+            }
         }
-        */
+
         if(a)x-=speed;
         if(d)x+=speed;
         if(w)y-=speed;
