@@ -108,6 +108,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public void tick(){
         //pongBall.tick();
         player.tick(grid,level);
+        player.tick(grid,level);
+        player.tick(grid,level);
+        player.tick(grid,level);
     }
 //renders the graphics... uses bs, buffered strategy to hold on to the g,
 //graphics and then disposes the old graphics to be refilled later, then displays bs

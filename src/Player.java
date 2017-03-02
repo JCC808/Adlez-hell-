@@ -11,7 +11,7 @@ public class Player extends Rectangle {
 //these are the letters, they store boolean of pressed or not (see Game: KeyPressed())
     public boolean w=false,a=false,s=false,d=false;
 //this changes how much the obj moves when it is being told to move, motion/tick
-    private int speed = 4;
+    private int speed = 1;
 //used to see the location of the box, troubleshooting helpout
     public int xone, yone;
 
@@ -29,13 +29,13 @@ public class Player extends Rectangle {
         for (int i=0; i<192; i++){
             if (grid[level][i].getWidth()>0){
                 if((this.getMaxY() >= grid[level][i].getMinY()) && (this.getMaxY() < grid[level][i].getMinY()+4)&&
-                   (this.getMaxX() >= grid[level][i].getMinX()) && (this.getMinX() <= grid[level][i].getMaxX())) s = false;
+                   (this.getMaxX() > grid[level][i].getMinX()) && (this.getMinX() < grid[level][i].getMaxX())) s = false;
                 if((this.getMinY() >= grid[level][i].getMaxY()) && (this.getMinY() < grid[level][i].getMaxY()+4)&&
-                   (this.getMaxX() >= grid[level][i].getMinX()) && (this.getMinX() <= grid[level][i].getMaxX())) w = false;
+                   (this.getMaxX() > grid[level][i].getMinX()) && (this.getMinX() < grid[level][i].getMaxX())) w = false;
                 if((this.getMaxX() >= grid[level][i].getMinX()) && (this.getMaxX() < grid[level][i].getMinX()+4)&&
-                   (this.getMaxY() >= grid[level][i].getMinY()) && (this.getMinY() <= grid[level][i].getMaxY())) d = false;
+                   (this.getMaxY() > grid[level][i].getMinY()) && (this.getMinY() < grid[level][i].getMaxY())) d = false;
                 if((this.getMinX() >= grid[level][i].getMaxX()) && (this.getMinX() < grid[level][i].getMaxX()+4)&&
-                   (this.getMaxY() >= grid[level][i].getMinY()) && (this.getMinY() <= grid[level][i].getMaxY())) a = false;
+                   (this.getMaxY() > grid[level][i].getMinY()) && (this.getMinY() < grid[level][i].getMaxY())) a = false;
             }
         }
 
