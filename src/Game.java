@@ -47,7 +47,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public static Player player;
     public static PongBall pongBall;
-    //public static Walls[] walls= new Walls[20];
     public static Walls[][] grid = new Walls[7][192];
 //initializes the game obj.. this has to have dimensions in it and every object, block, player whatever
 // also starts the KeyListener
@@ -78,30 +77,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
             }
 
         }
-
-//lots and lots of walls... we need to find a better way to do this
-/*
-        walls[0] = new Walls(120,0,40,360);
-        walls[1] = new Walls(360,0,40,80);
-        walls[2] = new Walls(560,0,40,320);
-        walls[3] = new Walls(240,40,40,160);
-        walls[4] = new Walls(440,40,40,80);
-        walls[5] = new Walls(360,120,40,80);
-        walls[6] = new Walls(480,160,40,120);
-        walls[7] = new Walls(200,200,40,240);
-        walls[8] = new Walls(360,240,240,40);
-        walls[9] = new Walls(0,280,40,40);
-        walls[10] = new Walls(360,280,40,40);
-        walls[11] = new Walls(80,320,80,40);
-        walls[12] = new Walls(440,320,40,160);
-        walls[13] = new Walls(40,360,40,80);
-        walls[14] = new Walls(520,360,120,40);
-        walls[15] = new Walls(120,400,40,80);
-        walls[16] = new Walls(160,400,40,40);
-        walls[17] = new Walls(320,400,40,80);
-        walls[18] = new Walls(400,400,40,80);
-        walls[19] = new Walls(480,440,80,40);
-*/
         }
 
 //this is all of the movements, everything that should happen with every split second update
