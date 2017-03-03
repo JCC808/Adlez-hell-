@@ -130,7 +130,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private static void drawMaze()throws IOException{
         int levelsMade = 1;
         int[][] frame = new int[7][192];
-        frame[0] = read("resources\\Level0.txt");
+        frame[0] = read("resources//Level0.txt");
         int locx = 0,locy=0;
         for (int i= 0; i<levelsMade; i++) {
             for (int j = 0; j < 192; j++) {
@@ -218,10 +218,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
         if(e.getKeyChar() == 'a') player.a = true;
         if(e.getKeyChar() == 'w') player.w = true;
         if(e.getKeyChar() == 's') player.s = true;
+        if(e.getKeyChar() == ' ') player.jump = true;
         if(e.getKeyChar() == 'l'){
             System.out.println(player.xone);
             System.out.println(player.yone);
         }
+
+
     }
 
     @Override

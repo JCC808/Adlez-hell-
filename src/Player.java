@@ -10,7 +10,7 @@ public class Player extends Rectangle {
 
 //these are the letters, they store boolean of pressed or not (see Game: KeyPressed())
 //up down left right are used for checking whether or not it is possible to move in that direction
-    public boolean w=false,a=false,s=false,d=false,up=true,down=true,left=true,right=true;
+    public boolean w=false,a=false,s=false,d=false,up=true,down=true,left=true,right=true, jump=false;
 //this changes how much the obj moves when it is being told to move, motion/tick
 /*
  *for gravDirection :
@@ -50,7 +50,7 @@ public class Player extends Rectangle {
                    (this.getMaxY() > grid[level][i].getMinY()) && (this.getMinY() < grid[level][i].getMaxY())) left = false;
             }
         }
-//this checks the edges
+//this checks the edges of the screen
         if (x >= 624) right = false;
         if (x<= 0) left = false;
         if (y >= 464) down = false;
@@ -58,6 +58,8 @@ public class Player extends Rectangle {
 
         for (int i=0;i<gravs[0].getnumTiles();i++)
             if (this.intersects(gravs[i])) gravDirection = gravs[i].getGravDirection();
+
+
 
 //normal change in location based off of key depression
 // this also doesn't allow you do speed up or slow down your descent caused by gravity
@@ -86,6 +88,14 @@ public class Player extends Rectangle {
         if(w)dy-=speed;
         if(s)dy+=speed;
 
+        if(jump){ jump = true;
+            if (gravDirection == 1) gravDirection = 3;
+            if (gravDirection == 2) gravDirection = 4;
+            if (gravDirection == 3) gravDirection = 1;
+            if (gravDirection == 4) gravDirection = 2;
+        }
+        jump = this.isJump(jump);
+
 //it it cant move in a direction but it wants to... this says no...
         if (!right && dx>0) dx = 0;
         if (!left && dx<0) dx = 0;
@@ -113,3 +123,20 @@ public class Player extends Rectangle {
         g.fillRect(x,y,width,height);
     }
 }
+private static boolean isJump(boolean jump){
+    int count = 0;
+    count++;
+    if(count == 30){
+        count = 0;
+        return false;
+    }
+    return jump;
+}
+//jump method: if space is hit,
+//time needed: how long you go up
+//reset: based on direction of gravity, determines whetheror not i can go down(if im on ground,
+//no while loop!!
+//if timer < timeAmount -> dx/dy becomes opposite gravity
+//if the direction of gravity(true), opposite gravity
+//count when jump  is called, if timer
+
