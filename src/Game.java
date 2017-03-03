@@ -48,6 +48,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static Player player;
     public static PongBall pongBall;
     public static Walls[][] grid = new Walls[7][192];
+    public static GravityTiles[] gravs = new GravityTiles[5];
 //initializes the game obj.. this has to have dimensions in it and every object, block, player whatever
 // also starts the KeyListener
     public Game()throws IOException{
@@ -58,34 +59,19 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
         addKeyListener(this);
         player = new Player(Game.WIDTH/2, Game.HEIGHT/2);
+//pongBall is a template for moving enemies or walls
         pongBall = new PongBall(Game.WIDTH/2, Game.HEIGHT/2);
-//new shit
-        int levelsMade = 1;
-        int[][] frame = new int[7][192];
-        frame[0] = read("resources\\Level0.txt");
-        int locx = 0,locy=0;
-        for (int i= 0; i<levelsMade; i++) {
-            for (int j = 0; j < 192; j++) {
-                if (frame[i][j] == 1) grid[i][j] = new Walls(locx * 40, locy * 40, 40, 40);
-                if (frame[i][j] == 0) grid[i][j] = new Walls(locx * 40, locy * 40, 0, 0);
-                if (locx < 15) {
-                    locx++;
-                } else {
-                    locx = 0;
-                    locy++;
-                }
-            }
-
-        }
-        }
+        drawMaze();
+        drawGravityTiles();
+    }
 
 //this is all of the movements, everything that should happen with every split second update
     public void tick(){
         //pongBall.tick();
-        player.tick(grid,level);
-        player.tick(grid,level);
-        player.tick(grid,level);
-        player.tick(grid,level);
+        player.tick(grid,gravs,level);
+        player.tick(grid,gravs,level);
+        player.tick(grid,gravs,level);
+        player.tick(grid,gravs,level);
     }
 //renders the graphics... uses bs, buffered strategy to hold on to the g,
 //graphics and then disposes the old graphics to be refilled later, then displays bs
@@ -102,10 +88,11 @@ public class Game extends Canvas implements Runnable, KeyListener {
         player.render(g);
         //pongBall.render(g);
         for(int i = 0; i<grid[level].length;i++) grid[level][i].render(g);
+        for(int i = 0; i<5; i++) gravs[i].render(g);
         g.dispose();
         bs.show();
     }
-/*
+/**
  *So... This one will take a little explaining:
  *A thread is a copy of this class only it has the ability to run two "threads"
  *concurrently. thread.start() calls two things:
@@ -122,7 +109,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         thread.start();
 
     }
-/*
+/**
  * stop works with the thread... basically it waits a certain amount of time
  *for a response that it already suspended. if it gets the response it will
  *throw and exception, if it doesn't it will end with a long of how long it
@@ -140,6 +127,31 @@ public class Game extends Canvas implements Runnable, KeyListener {
 /*
  *this method reads 1 and 0 from .text files then returns them in an array to be used for creating levels
  */
+    private static void drawMaze()throws IOException{
+        int levelsMade = 1;
+        int[][] frame = new int[7][192];
+        frame[0] = read("resources\\Level0.txt");
+        int locx = 0,locy=0;
+        for (int i= 0; i<levelsMade; i++) {
+            for (int j = 0; j < 192; j++) {
+                if (frame[i][j] == 1) grid[i][j] = new Walls(locx * 40, locy * 40, 40, 40);
+                if (frame[i][j] == 0) grid[i][j] = new Walls(locx * 40, locy * 40, 0, 0);
+                if (locx < 15) {
+                    locx++;
+                } else {
+                    locx = 0;
+                    locy++;
+                }
+            }
+        }
+    }
+    private static void drawGravityTiles(){
+        gravs[0] = new GravityTiles(600,0,2);
+        gravs[1] = new GravityTiles(520,200,3);
+        gravs[2] = new GravityTiles(0,440,4);
+        gravs[3] = new GravityTiles(160,440,1);
+        gravs[4] = new GravityTiles(640,480,0);
+    }
     private static int[] read(String fileName)throws IOException{
         int[] arr = new int[192];
         FileReader file = new FileReader(fileName);
@@ -195,7 +207,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     @Override
-/*
+/**
  *If you don't know what KeyEvents and KeyListener is, you have a bit of reading to do
  *this is our control over the game
  *I used chars because something about e.getKeyCode() wasn't returning anything other than zero

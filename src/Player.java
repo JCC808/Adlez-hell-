@@ -20,7 +20,7 @@ public class Player extends Rectangle {
     * 3 = left
     * 4 = up
  */
-    private int speed = 1, gravity = 0, gravDirection = 0, dx = 0, dy = 0;
+    private int speed = 1, gravity = 1, gravDirection = 0, dx = 0, dy = 0;
 //used to see the location of the box, troubleshooting helpout
     public int xone, yone;
 
@@ -33,7 +33,7 @@ public class Player extends Rectangle {
     }
 //if any of the keys are pressed move speed in that direction
 //and yes y increases as you go down
-    public void tick(Walls[][] grid,int level){
+    public void tick(Walls[][] grid, GravityTiles[] gravs, int level){
 //this crazy looking, really hard to read for loop is the hit boxes for the blocks
         for (int i=0; i<192; i++){
             if (grid[level][i].getWidth()>0){
@@ -55,6 +55,10 @@ public class Player extends Rectangle {
         if (x<= 0) left = false;
         if (y >= 464) down = false;
         if (y <= 0) up = false;
+
+        for (int i=0;i<gravs[0].getnumTiles();i++)
+            if (this.intersects(gravs[i])) gravDirection = gravs[i].getGravDirection();
+
 //normal change in location based off of key depression
 // this also doesn't allow you do speed up or slow down your descent caused by gravity
         if(gravDirection == 1){
