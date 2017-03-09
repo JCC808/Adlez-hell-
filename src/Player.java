@@ -57,6 +57,8 @@ public class Player extends Rectangle {
         if (y >= 464) down = false;
         if (y <= 0) up = false;
 
+        //yo wazzup
+
         for (int i=0;i<gravs[0].length;i++)
             if (this.intersects(gravs[0][i])) gravDirection = gravs[0][i].getGravDirection();
 
