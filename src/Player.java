@@ -10,7 +10,8 @@ public class Player extends Rectangle {
 
 //these are the letters, they store boolean of pressed or not (see Game: KeyPressed())
 //up down left right are used for checking whether or not it is possible to move in that direction
-    public boolean w=false,a=false,s=false,d=false,up=true,down=true,left=true,right=true;
+    public boolean w=false,a=false,s=false,d=false,up=true,down=true,left=true,right=true,jump=false,reset=true;
+    private int count=0;
 //this changes how much the obj moves when it is being told to move, motion/tick
 /*
  *for gravDirection :
@@ -33,7 +34,7 @@ public class Player extends Rectangle {
     }
 //if any of the keys are pressed move speed in that direction
 //and yes y increases as you go down
-    public void tick(Walls[][] grid, GravityTiles[] gravs, int level){
+    public void tick(Walls[][] grid, GravityTiles[][] gravs, int level){
 //this crazy looking, really hard to read for loop is the hit boxes for the blocks
         for (int i=0; i<192; i++){
             if (grid[level][i].getWidth()>0){
@@ -56,27 +57,31 @@ public class Player extends Rectangle {
         if (y >= 464) down = false;
         if (y <= 0) up = false;
 
-        for (int i=0;i<gravs[0].getnumTiles();i++)
-            if (this.intersects(gravs[i])) gravDirection = gravs[i].getGravDirection();
+        for (int i=0;i<gravs[0].length;i++)
+            if (this.intersects(gravs[0][i])) gravDirection = gravs[0][i].getGravDirection();
 
 //normal change in location based off of key depression
 // this also doesn't allow you do speed up or slow down your descent caused by gravity
         if(gravDirection == 1){
+            if (!right) reset = true;
             d = false;
             a = false;
             dx += gravity;
         }
         if(gravDirection == 2){
+            if (!down) reset = true;
             w = false;
             s = false;
             dy+=gravity;
         }
         if(gravDirection == 3){
+            if (!left) reset = true;
             d = false;
             a = false;
             dx-=gravity;
         }
         if(gravDirection == 4){
+            if (!up) reset = true;
             s = false;
             w = false;
             dy-=gravity;
@@ -86,6 +91,13 @@ public class Player extends Rectangle {
         if(w)dy-=speed;
         if(s)dy+=speed;
 
+        if(jump && reset){
+            if (gravDirection == 1) dx=-1;
+            if (gravDirection == 2) dy=-1;
+            if (gravDirection == 3) dx=1;
+            if (gravDirection == 4) dy=1;
+            jump = this.isJump(jump);
+        }
 //it it cant move in a direction but it wants to... this says no...
         if (!right && dx>0) dx = 0;
         if (!left && dx<0) dx = 0;
@@ -111,5 +123,14 @@ public class Player extends Rectangle {
     public void render(Graphics g){
         g.setColor(Color.yellow);
         g.fillRect(x,y,width,height);
+    }
+    private boolean isJump(boolean jump){
+        count++;
+        if(count == 50){
+            count = 0;
+            reset = false;
+            return false;
+        }
+        return jump;
     }
 }

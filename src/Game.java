@@ -17,6 +17,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private static final int WIDTH = 640, HEIGHT=480;
     private static final String TITLE = "Adlez";
     private static int level = 0;
+
+    private Thread thread;
+
+    public static Player player;
+    public static PongBall pongBall;
+    public static Walls[][] grid = new Walls[7][192];
+    public static GravityTiles[][] gravs = new GravityTiles[9][];
+    public static LevelTiles[][] starts = new LevelTiles[9][];
 //main calls a new game starting it out, also starts up jFrame (the paintable window)
     public static void main(String[] args)throws IOException {
         Game game = new Game();
@@ -43,12 +51,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     }
 //this thread
-    private Thread thread;
 
-    public static Player player;
-    public static PongBall pongBall;
-    public static Walls[][] grid = new Walls[7][192];
-    public static GravityTiles[] gravs = new GravityTiles[5];
 //initializes the game obj.. this has to have dimensions in it and every object, block, player whatever
 // also starts the KeyListener
     public Game()throws IOException{
@@ -58,11 +61,12 @@ public class Game extends Canvas implements Runnable, KeyListener {
         setMaximumSize(dimension);
 
         addKeyListener(this);
-        player = new Player(Game.WIDTH/2, Game.HEIGHT/2);
+        player = new Player(600, 440);
 //pongBall is a template for moving enemies or walls
         pongBall = new PongBall(Game.WIDTH/2, Game.HEIGHT/2);
         drawMaze();
         drawGravityTiles();
+        drawLevelTiles();
     }
 
 //this is all of the movements, everything that should happen with every split second update
@@ -81,14 +85,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
             createBufferStrategy(3);
             return;
         }
-
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.black);
         g.fillRect(0,0,Game.WIDTH,Game.HEIGHT);
         player.render(g);
         //pongBall.render(g);
         for(int i = 0; i<grid[level].length;i++) grid[level][i].render(g);
-        for(int i = 0; i<5; i++) gravs[i].render(g);
+        for(int i = 0; i<5; i++) gravs[level][i].render(g);
         g.dispose();
         bs.show();
     }
@@ -131,6 +134,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         int levelsMade = 1;
         int[][] frame = new int[7][192];
         frame[0] = read("resources\\Level0.txt");
+        frame[1] = read("resources\\Level1.txt");
         int locx = 0,locy=0;
         for (int i= 0; i<levelsMade; i++) {
             for (int j = 0; j < 192; j++) {
@@ -146,11 +150,16 @@ public class Game extends Canvas implements Runnable, KeyListener {
         }
     }
     private static void drawGravityTiles(){
-        gravs[0] = new GravityTiles(600,0,2);
-        gravs[1] = new GravityTiles(520,200,3);
-        gravs[2] = new GravityTiles(0,440,4);
-        gravs[3] = new GravityTiles(160,440,1);
-        gravs[4] = new GravityTiles(640,480,0);
+        gravs[0] = new GravityTiles[5];
+        gravs[0][0] = new GravityTiles(600, 0, 2);
+        gravs[0][1] = new GravityTiles(520, 200, 3);
+        gravs[0][2] = new GravityTiles(0, 440, 4);
+        gravs[0][3] = new GravityTiles(160, 440, 1);
+        gravs[0][4] = new GravityTiles(480, 360, 1);
+    }
+    private static void drawLevelTiles(){
+        starts[0] = new LevelTiles[3];
+
     }
     private static int[] read(String fileName)throws IOException{
         int[] arr = new int[192];
@@ -218,6 +227,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         if(e.getKeyChar() == 'a') player.a = true;
         if(e.getKeyChar() == 'w') player.w = true;
         if(e.getKeyChar() == 's') player.s = true;
+        if(e.getKeyChar() == ' ') player.jump = true;
         if(e.getKeyChar() == 'l'){
             System.out.println(player.xone);
             System.out.println(player.yone);
