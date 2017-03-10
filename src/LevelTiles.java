@@ -19,7 +19,12 @@ public class LevelTiles extends Rectangle{
     public LevelTiles(){}
 //standard render()
     public void render(Graphics g){
-        g.setColor(Color.green);
-        g.fillRect(x,y,width,height);
+        if (type){
+            g.setColor(Color.GREEN);
+        } else {
+            g.setColor(Color.RED);
+        }
+        g.fillOval(x,y,width,height);
     }
+    public boolean getType(){return type;}
 }

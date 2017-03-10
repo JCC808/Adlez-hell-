@@ -72,10 +72,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 //this is all of the movements, everything that should happen with every split second update
     public void tick(){
         //pongBall.tick();
-        player.tick(grid,gravs,level);
-        player.tick(grid,gravs,level);
-        player.tick(grid,gravs,level);
-        player.tick(grid,gravs,level);
+        player.tick(grid,gravs,starts,level);
+        player.tick(grid,gravs,starts,level);
+        player.tick(grid,gravs,starts,level);
+        player.tick(grid,gravs,starts,level);
     }
 //renders the graphics... uses bs, buffered strategy to hold on to the g,
 //graphics and then disposes the old graphics to be refilled later, then displays bs
@@ -91,7 +91,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
         player.render(g);
         //pongBall.render(g);
         for(int i = 0; i<grid[level].length;i++) grid[level][i].render(g);
-        for(int i = 0; i<5; i++) gravs[level][i].render(g);
+        for(int i = 0; i<gravs[level].length; i++) gravs[level][i].render(g);
+        for(int i = 0; i<starts[level].length; i++) starts[level][i].render(g);
         g.dispose();
         bs.show();
     }
@@ -131,7 +132,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
  *this method reads 1 and 0 from .text files then returns them in an array to be used for creating levels
  */
     private static void drawMaze()throws IOException{
-        int levelsMade = 1;
+        int levelsMade = 2;
         int[][] frame = new int[7][192];
         frame[0] = read("resources\\Level0.txt");
         frame[1] = read("resources\\Level1.txt");
@@ -156,9 +157,17 @@ public class Game extends Canvas implements Runnable, KeyListener {
         gravs[0][2] = new GravityTiles(0, 440, 4);
         gravs[0][3] = new GravityTiles(160, 440, 1);
         gravs[0][4] = new GravityTiles(480, 360, 1);
+        gravs[1] = new GravityTiles[0];
     }
     private static void drawLevelTiles(){
-        starts[0] = new LevelTiles[3];
+        starts[0] = new LevelTiles[4];
+        starts[0][0] = new LevelTiles(0,0,true);
+        starts[0][1] = new LevelTiles(80,40,false);
+        starts[0][2] = new LevelTiles(40,160,false);
+        starts[0][3] = new LevelTiles(360,440,false);
+        starts[1] = new LevelTiles[1];
+        starts[1][0] = new LevelTiles(600,0,true);
+
 
     }
     private static int[] read(String fileName)throws IOException{
@@ -214,6 +223,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
             }
         }
     }
+    public static void setLevel(int newlevel){level = newlevel;}
 
     @Override
 /**
