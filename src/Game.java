@@ -25,6 +25,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static Walls[][] grid = new Walls[7][192];
     public static GravityTiles[][] gravs = new GravityTiles[9][];
     public static LevelTiles[][] starts = new LevelTiles[9][];
+    public static CoinTiles[] coins = new CoinTiles[12];
 //main calls a new game starting it out, also starts up jFrame (the paintable window)
     public static void main(String[] args)throws IOException {
         Game game = new Game();
@@ -67,6 +68,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         drawMaze();
         drawGravityTiles();
         drawLevelTiles();
+        drawCoinTiles();
     }
 
 //this is all of the movements, everything that should happen with every split second update
@@ -134,8 +136,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private static void drawMaze()throws IOException{
         int levelsMade = 2;
         int[][] frame = new int[7][192];
-        frame[0] = read("resources\\Level0.txt");
-        frame[1] = read("resources\\Level1.txt");
+        frame[0] = read("resources/Level0.txt");
+        frame[1] = read("resources/Level1.txt");
         int locx = 0,locy=0;
         for (int i= 0; i<levelsMade; i++) {
             for (int j = 0; j < 192; j++) {
@@ -168,6 +170,24 @@ public class Game extends Canvas implements Runnable, KeyListener {
         starts[1] = new LevelTiles[1];
         starts[1][0] = new LevelTiles(600,0,true);
 
+
+    }
+    private static void drawCoinTiles(){
+        int[][] coinLocation = new int[][]{
+                {0,2,3,5,7,8,8 ,9,10,13,14,15},
+                {6,2,4,9,3,6,11,5, 1, 9, 1, 6}
+        };
+        int x = 0;
+        int y = 0;
+        int index =0;
+        for(int i = 0; i < coinLocation.length; i++){
+            for(int j = 0; j < coinLocation[0].length; j++){
+                if(i==0) {x = coinLocation[i][j];}
+                if(i==1) {y = coinLocation[i][j];}
+            }
+            coins[index] = new CoinTiles(x,y);
+            index++;
+        }
 
     }
     private static int[] read(String fileName)throws IOException{

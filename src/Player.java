@@ -57,7 +57,7 @@ public class Player extends Rectangle {
         if (y >= 464) down = false;
         if (y <= 0) up = false;
 
-        //yo wazzup
+
 
         for (int i=0;i<gravs[level].length;i++)
             if (this.intersects(gravs[level][i])) gravDirection = gravs[0][i].getGravDirection();
@@ -140,6 +140,7 @@ public class Player extends Rectangle {
         g.setColor(Color.yellow);
         g.fillRect(x,y,width,height);
     }
+    //controls the amount of time it jumps
     private boolean isJump(boolean jump){
         count++;
         if(count == 50){
