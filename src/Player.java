@@ -69,7 +69,8 @@ public class Player extends Rectangle {
                     gravDirection = 0;
                 }
                 if (starts[level][i].getType()){
-                    Game.setLevel(2);
+                    Game.setLevel(1);
+                    gravDirection = 0;
                     x = 16;
                     y = 16;
                 }

@@ -172,10 +172,12 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 
     }
+    //stores x and y locations for coinlocation in double array, creates a coinTiles object
+    //for each coin.
     private static void drawCoinTiles(){
         int[][] coinLocation = new int[][]{
-                {0,2,3,5,7,8,8 ,9,10,13,14,15},
-                {6,2,4,9,3,6,11,5, 1, 9, 1, 6}
+                {0, 2, 3, 5, 7, 8, 8 , 9, 10, 13, 14, 15},
+                {6, 2, 4, 9, 3, 6, 11, 5, 1 , 9 , 1 , 6 }
         };
         int x = 0;
         int y = 0;
