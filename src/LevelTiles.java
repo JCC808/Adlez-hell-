@@ -15,8 +15,6 @@ public class LevelTiles extends Rectangle{
         this.type = type;
 
     }
-//constructor for place holders... if you need them, these will be a fake block that doesn't appear
-    public LevelTiles(){}
 //standard render()
     public void render(Graphics g){
         if (type){

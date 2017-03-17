@@ -90,11 +90,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.black);
         g.fillRect(0,0,Game.WIDTH,Game.HEIGHT);
-        player.render(g);
         //pongBall.render(g);
         for(int i = 0; i<grid[level].length;i++) grid[level][i].render(g);
         for(int i = 0; i<gravs[level].length; i++) gravs[level][i].render(g);
         for(int i = 0; i<starts[level].length; i++) starts[level][i].render(g);
+        if(level == 1){
+            for(int i = 0; i < coins.length; i++) coins[i].render(g);
+        }
+        player.render(g);
         g.dispose();
         bs.show();
     }
