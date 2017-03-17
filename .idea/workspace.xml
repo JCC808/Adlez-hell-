@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c6e2219f-db2a-44c9-982f-7325058d31de" name="Default" comment="Changing a few names">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ArrowDown.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ArrowLeft.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ArrowRight.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ArrowUp.png" />
+    <list default="true" id="c6e2219f-db2a-44c9-982f-7325058d31de" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AdlezCode/Game.class" afterPath="$PROJECT_DIR$/out/production/AdlezCode/Game.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game.java" afterPath="$PROJECT_DIR$/src/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GravityTiles.java" afterPath="$PROJECT_DIR$/src/GravityTiles.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LevelTiles.java" afterPath="$PROJECT_DIR$/src/LevelTiles.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -482,12 +475,19 @@
       <option name="project" value="LOCAL" />
       <updated>1489427555363</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Changing a few names">
+      <created>1489715553683</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1489715553683</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
